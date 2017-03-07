@@ -10,33 +10,34 @@ PAT = 'EAAYwSluZA0n8BAJFDoZCElipIzdZC78x8ugQse8TwUnTY76yZBN6SOPWtLA4ZCiYsaIo4qp7
 
 @app.route('/', methods=['GET'])
 def handle_verification():
-  print "Handling Verification."
+  print("Handling Verification.")
   if request.args.get('hub.verify_token', '') == 'secret':
-    print "Verification successful!"
+    print("Verification successful!")
     return request.args.get('hub.challenge', '')
   else:
-    print "Verification failed!"
+    print("Verification failed!")
     return 'Error, wrong validation token'
 
 @app.route('/', methods=['POST'])
 def handle_messages():
-  print "Handling Messages"
+  print("Handling Messages")
   payload = request.get_data()
-  print payload
+  print(payload)
   for sender, message in messaging_events(payload):
-    print "Incoming from %s: %s" % (sender, message)
+    print("Incoming from %s: %s" % (sender, message))
     url=("https://graph.facebook.com/%i?&access_token=%i",sender_id, PAT)
     data=requests.get(url)
+    console.log(data)
     #data=urllib.request.urlopen("https://graph.facebook.com/4?fields=name&access_token="+ACCESS_TOKEN).read()
     #data=urllib.request.urlopen("https://graph.facebook.com/"+sender+"?access_token="+ACCESS_TOKEN).read()
     #print(data)
-    name=data.decode('utf-8')
-    jdata=json.loads(name)
-    name=jdata['first_name']
+    #name=data.decode('utf-8')
+    #jdata=json.loads(name)
+    #name=jdata['first_name']
     #reply(sender, jdata['name'])
 
 
-    send_message(PAT, sender, name)
+    send_message(PAT, sender, "Simon")
   return "ok"
 
 def messaging_events(payload):
@@ -64,7 +65,7 @@ def send_message(token, recipient, text):
     }),
     headers={'Content-type': 'application/json'})
   if r.status_code != requests.codes.ok:
-    print r.text
+    print(r.text)
 
 if __name__ == '__main__':
   app.run()
