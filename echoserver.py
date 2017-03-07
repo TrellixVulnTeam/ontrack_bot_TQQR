@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 # This needs to be filled with the Page Access Token that will be provided
 # by the Facebook App that will be created.
-PAT = 'EAAYwSluZA0n8BAJFDoZCElipIzdZC78x8ugQse8TwUnTY76yZBN6SOPWtLA4ZCiYsaIo4qp7v2NxHwDjq4vGVAOZCYDYS56ZCYK8rpjYVKpqJNp7QudjZBTZAbIAC40u16qlnARa3omdorw9O5aUl2h2DuyvMwZAOYANZCnp22beYcogwZDZD'
+PAT = 'EAAYwSluZA0n8BAMcl44gpxJftYGVodv5uUBvZBeoAt0a8ztqhsrZATEyG6U3b5Fk1xKibZAP6b3JVnNk6M9EdwYz12RzdZBn72l3IKV9VHQbJ0T31sWWZBpvvRoxm7M5G1W1cAos7GDk6EWCAs6Ngcl5q4NZAwjsvfuoc53Qf3sCwZDZD'
 
 @app.route('/', methods=['GET'])
 def handle_verification():
@@ -25,19 +25,7 @@ def handle_messages():
   print(payload)
   for sender, message in messaging_events(payload):
     print("Incoming from %s: %s" % (sender, message))
-    #url=("https://graph.facebook.com/%i?&access_token=%i",sender, PAT)
-    #data=requests.get(url)
-    #console.log(data)
-    #data=urllib.request.urlopen("https://graph.facebook.com/4?fields=name&access_token="+ACCESS_TOKEN).read()
-    #data=urllib.request.urlopen("https://graph.facebook.com/"+sender+"?access_token="+ACCESS_TOKEN).read()
-    #print(data)
-    #name=data.decode('utf-8')
-    #jdata=json.loads(name)
-    #name=jdata['first_name']
-    #reply(sender, jdata['name'])
-
-
-    send_message(PAT, sender, "Simon")
+    send_message(PAT, sender, message)
   return "ok"
 
 def messaging_events(payload):
