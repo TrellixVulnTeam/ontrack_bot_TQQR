@@ -1,6 +1,7 @@
 from flask import Flask, request
 import json
 import requests
+import urllib.request
 
 app = Flask(__name__)
 
@@ -22,13 +23,20 @@ def handle_verification():
 def handle_messages():
   print("Handling Messages")
   payload = request.get_data()
-  print(payload)
+  #print(payload)
+  payload=payload.decode('utf-8')
+  #payload=json.loads(payload)
+  #print(payload)
   for sender, message in messaging_events(payload):
     print("Incoming from %s: %s" % (sender, message))
-    url=("https://graph.facebook.com/%i?&access_token=%i",sender,PAT)
-    send_message(PAT, sender, message)
+    name=get_name(sender)
+    send_message(PAT, sender, name)
   return "ok"
-
+def get_name(sender):
+  url=("https://graph.facebook.com/%s" %sender)
+  data=requests.get(url, params={'access_token': PAT})
+  payload=json.loads(data.text)
+  return payload['first_name']
 def messaging_events(payload):
   """Generate tuples of (sender_id, message_text) from the
   provided payload.
@@ -50,7 +58,8 @@ def send_message(token, recipient, text):
     params={"access_token": token},
     data=json.dumps({
       "recipient": {"id": recipient},
-      "message": {"text": text.decode('unicode_escape')}
+      "message": {"text": text}
+      #"message": {"text": text.decode('unicode_escape')}
     }),
     headers={'Content-type': 'application/json'})
   if r.status_code != requests.codes.ok:
