@@ -25,6 +25,7 @@ def handle_messages():
   print(payload)
   for sender, message in messaging_events(payload):
     print("Incoming from %s: %s" % (sender, message))
+    url=("https://graph.facebook.com/%i?&access_token=%i",sender,PAT)
     send_message(PAT, sender, message)
   return "ok"
 
