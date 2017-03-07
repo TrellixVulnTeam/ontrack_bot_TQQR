@@ -2,17 +2,18 @@ from flask import Flask, request
 import json
 import requests
 import urllib.request
+import config
 
 app = Flask(__name__)
 
 # This needs to be filled with the Page Access Token that will be provided
 # by the Facebook App that will be created.
-PAT = 'EAAYwSluZA0n8BAMcl44gpxJftYGVodv5uUBvZBeoAt0a8ztqhsrZATEyG6U3b5Fk1xKibZAP6b3JVnNk6M9EdwYz12RzdZBn72l3IKV9VHQbJ0T31sWWZBpvvRoxm7M5G1W1cAos7GDk6EWCAs6Ngcl5q4NZAwjsvfuoc53Qf3sCwZDZD'
+PAT = config.PAT
 
 @app.route('/', methods=['GET'])
 def handle_verification():
   print("Handling Verification.")
-  if request.args.get('hub.verify_token', '') == 'secret':
+  if request.args.get('hub.verify_token', '') == config.token:
     print("Verification successful!")
     return request.args.get('hub.challenge', '')
   else:
@@ -30,8 +31,11 @@ def handle_messages():
   for sender, message in messaging_events(payload):
     print("Incoming from %s: %s" % (sender, message))
     name=get_name(sender)
-    send_message(PAT, sender, name)
+    response=("Hey there %s!" %name)
+    send_message(PAT, sender, response)
   return "ok"
+
+
 def get_name(sender):
   url=("https://graph.facebook.com/%s" %sender)
   data=requests.get(url, params={'access_token': PAT})
