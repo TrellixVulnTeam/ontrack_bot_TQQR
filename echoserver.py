@@ -26,8 +26,8 @@ def handle_messages():
   for sender, message in messaging_events(payload):
     print("Incoming from %s: %s" % (sender, message))
     url=("https://graph.facebook.com/%i?&access_token=%i",sender_id, PAT)
-    data=requests.get(url)
-    console.log(data)
+    #data=requests.get(url)
+    #console.log(data)
     #data=urllib.request.urlopen("https://graph.facebook.com/4?fields=name&access_token="+ACCESS_TOKEN).read()
     #data=urllib.request.urlopen("https://graph.facebook.com/"+sender+"?access_token="+ACCESS_TOKEN).read()
     #print(data)
