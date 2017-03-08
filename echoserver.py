@@ -1,7 +1,7 @@
 from flask import Flask, request
 import json
 import requests
-import urllib.request
+import urllib
 import config
 
 app = Flask(__name__)
