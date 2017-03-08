@@ -9,8 +9,9 @@ app = Flask(__name__)
 # This needs to be filled with the Page Access Token that will be provided
 # by the Facebook App that will be created.
 try:
-  PAT=ENV['PAT']
-  token=ENV['token']
+  PAT=os.environ['PAT']
+  token=os.environ['token']
+  print("success")
 except:
   PAT=config.PAT
   token=config.token
