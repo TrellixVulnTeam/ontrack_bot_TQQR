@@ -11,9 +11,10 @@ app = Flask(__name__)
 try:
   PAT=os.environ['PAT']
   token=os.environ['token']
+  print("Success")
 except:
-  PAT='EAAYwSluZA0n8BAB5fvLn4UZCO9g6Wg1s3vREHA1znxYZBRMoDvUk3Oioufqr1ZC9P9zTgQNaquF8YUdv6hPJU2Q6L4TKH7dRA2B6Y1YkUn8e0PLSQOzM4dImEjAZCMFwc3JEZCT9B9Ku8YdzLBrIBZC4U2LmfZCKfwLJTHURFix17wZDZD'
-  token='secrets'
+  PAT=config.PAT
+  token=config.token
 
 @app.route('/', methods=['GET'])
 def handle_verification():
@@ -29,10 +30,8 @@ def handle_verification():
 def handle_messages():
   print("Handling Messages")
   payload = request.get_data()
-  #print(payload)
   payload=payload.decode('utf-8')
-  #payload=json.loads(payload)
-  #print(payload)
+
   for sender, message in messaging_events(payload):
     print("Incoming from %s: %s" % (sender, message))
     name=get_name(sender)
