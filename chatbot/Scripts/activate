@@ -40,7 +40,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="$(if [ "$OSTYPE" "==" "cygwin" ]; then cygpath -u 'C:\Users\konan\Desktop\Development\Python\on_chat\chatbot'; else echo '/C/Users/konan/Desktop/Development/Python/on_chat/chatbot'; fi;)"
+VIRTUAL_ENV="$(if [ "$OSTYPE" "==" "cygwin" ]; then cygpath -u 'C:\Users\konan\Desktop\Development\echoserver\echobot'; else echo '/C/Users/konan/Desktop/Development/echoserver/echobot'; fi;)"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

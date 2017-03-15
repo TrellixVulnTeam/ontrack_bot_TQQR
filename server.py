@@ -3,10 +3,8 @@ from fuzzywuzzy import process
 import json
 import requests
 import urllib
-try:
-  import config
-except:
-  pass
+import config
+
 
 
 app = Flask(__name__)
