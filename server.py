@@ -3,7 +3,11 @@ from fuzzywuzzy import process
 import json
 import requests
 import urllib
-import config
+try:
+  import config
+except:
+  pass
+import os
 
 
 
@@ -11,12 +15,12 @@ app = Flask(__name__)
   
 
 try:
+  PAT=config.PAT
+  token=config.token
+except:
   PAT=os.environ['PAT']
   token=os.environ['token']
   print("Success")
-except:
-  PAT=config.PAT
-  token=config.token
 
 @app.route('/', methods=['GET'])
 def handle_verification():
